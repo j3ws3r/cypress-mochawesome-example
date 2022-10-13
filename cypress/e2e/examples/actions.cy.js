@@ -30,7 +30,7 @@ context('Actions', () => {
       // Ignore error checking prior to type
       // like whether the input is visible or disabled
       .type('disabled error checking', { force: true })
-      .should('have.value', 'disabled error checking')
+      .should('have.value', 'Test')
   })
 
   it('.focus() - focus on a DOM element', () => {
@@ -60,7 +60,7 @@ context('Actions', () => {
     cy.get('.action-form')
       .find('[type="text"]').type('HALFOFF')
     cy.get('.action-form').submit()
-      .next().should('contain', 'Your form has been submitted!')
+      .next().should('contain', 'Your form has been submitted!Test')
   })
 
   it('.click() - click on a DOM element', () => {

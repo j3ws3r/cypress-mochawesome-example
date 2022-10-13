@@ -4,16 +4,18 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "yarn test:run && yarn test:report",
-    "test:run": "rm -rf mochawesome-report cypress/screenshots cypress/videos && cypress run",
-    "test:report": "rm -rf cypress/report && mkdir cypress/report && yarn test:merge && yarn test:marge",
-    "test:merge": "mochawesome-merge > cypress/report/mochawesome.json",
-    "test:marge": "marge cypress/report/mochawesome.json -o cypress/report"
+    "scripts": "cypress run --reporter mochawesome",
+    "combine-reports": "npx mochawesome-merge report/reportJsons/*.json > report/reportJsons/outuput.json",
+    "generate-report": "npx mochawesome-report-generator report/reportJsons/output.json --reportDir ./report/ --inline",
+    "posttest": "npm run combine-reports && npm run generate-report && npm run awsReport",
+    "test": "npm run scripts || npm run posttest"
   },
   "devDependencies": {
-    "cypress": "^3.1.5",
     "mocha": "^5.2.0",
-    "mochawesome": "^3.1.1",
-    "mochawesome-merge": "^1.0.6"
+    "mochawesome-merge": "^1.0.7"
+  },
+  "dependencies": {
+    "cypress-mochawesome-reporter": "^3.2.3",
+    "mochawesome": "^7.1.3"
   }
 }
